@@ -44,10 +44,10 @@ int main(int argc, char ** argv)
   rclcpp::NodeOptions options;
 
   auto reader_node = std::make_shared<kvaser_interface::KvaserReaderNode>(options);
-  auto writer_node = std::make_shared<kvaser_interface::KvaserWriterNode>(options);
+  //auto writer_node = std::make_shared<kvaser_interface::KvaserWriterNode>(options);
 
   exec.add_node(reader_node->get_node_base_interface());
-  exec.add_node(writer_node->get_node_base_interface());
+  // exec.add_node(writer_node->get_node_base_interface());
 
   auto reader_configure_state = reader_node->configure();
 
@@ -60,9 +60,9 @@ int main(int argc, char ** argv)
     }
   }
 
-  auto writer_configure_state =
-    writer_node->configure();
-
+  //auto writer_configure_state =
+  //  writer_node->configure();
+  #if 0
   if (writer_configure_state.id() == State::PRIMARY_STATE_INACTIVE) {
     auto writer_activate_state =
       writer_node->activate();
@@ -71,8 +71,10 @@ int main(int argc, char ** argv)
       writer_started = true;
     }
   }
+  #endif
 
-  if (reader_started && writer_started) {
+  // if (reader_started && writer_started) {
+  if (reader_started) {
     exec.spin();
   }
 
